@@ -1,0 +1,45 @@
+//Created by sgalytskyy on 19.11.2014.
+
+extends layout
+block content
+  h1= title
+  br
+
+  - var count = items.length;
+  p #{length} items found. Show first #{count} items.
+
+  br
+  table.table.table-striped.table-bordered
+    thead
+      tr
+        th dHash
+        th Device
+        th OS
+        th Dates
+        th Dates Count
+        th Modified
+
+    if (typeof items === "undefined")
+      tr
+        td log table is empty
+    else
+      each item in items
+        tr
+          - var rowkey = item.RowKey.substr(0);
+          td #{rowkey}
+          td #{item.dT}
+          td #{item.oS}
+          td //#{dateArray}
+          td #{item.dateCount}
+          - var date = item.Timestamp;
+          td #{date}
+  hr
+
+
+  form(action="/db/parselog/", method="post")
+    button.btn(type="submit") Parse log
+
+  br
+
+  form(action="/db/droptable/", method="post")
+    button.btn(type="submit") Drop table
